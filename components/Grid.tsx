@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { Seed } from "./GameSeedInput";
 import { GameSeedContext } from "@/lib/context";
 import { GridSquare } from "./GridSquare";
+import { toast } from "sonner";
 
 export const Grid = () => {
   const seed: Seed | undefined = useContext(GameSeedContext);
@@ -10,6 +11,9 @@ export const Grid = () => {
     if (!seed) return null;
 
     const [width, height] = seed;
+    if (!width || !height) {
+      toast("Please provide width, height properly.");
+    }
 
     const rows = [];
     for (let i = 0; i < height; i++) {

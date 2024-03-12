@@ -16,10 +16,8 @@ export const GameSeedInput = () => {
   };
 
   const handleClick = () => {
-    console.log({ input });
     const parsedSeed = parseSeedInput(input);
     setSeed(parsedSeed);
-    console.log({ parsedSeed });
   };
 
   return (
