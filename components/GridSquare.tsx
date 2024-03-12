@@ -24,8 +24,15 @@ export const GridSquare = ({ id }: { id: number }) => {
   };
 
   return (
-    <div className="border border-gray-300 w-12 h-12 p-1" onClick={handleClick}>
-      {isOpen ? (isBomb ? "💣" : "✅") : null}
-    </div>
+    <>
+      <div
+        className={`border border-gray-300 w-12 h-12 p-1 flex justify-center items-center ${
+          isOpen ? "bg-secondary" : "bg-primary"
+        }`}
+        onClick={handleClick}
+      >
+        {isOpen ? (isBomb ? "💣" : "✅") : null}
+      </div>
+    </>
   );
 };
