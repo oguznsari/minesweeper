@@ -19,7 +19,7 @@ export const Grid = () => {
     for (let i = 0; i < height; i++) {
       const cols = [];
       for (let j = 0; j < width; j++) {
-        cols.push(<GridSquare key={`${i}-${j}`} />);
+        cols.push(<GridSquare id={i * width + j} />);
       }
       rows.push(
         <div key={i} className="flex">
