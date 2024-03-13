@@ -1,10 +1,16 @@
 import React, { useContext, useState } from "react";
-import { Seed } from "./GameSeedInput";
+import { BombClickedContext, Seed } from "./GameSeedInput";
 import { GameSeedContext } from "@/lib/context";
 
 const openSquares = new Set<number>();
 
-export const GridSquare = ({ id }: { id: number }) => {
+export const GridSquare = ({
+  id,
+  setIsBombClicked,
+}: {
+  id: number;
+  setIsBombClicked: (value: boolean) => void;
+}) => {
   const seed: Seed | undefined = useContext(GameSeedContext);
 
   const [, , mineLocations] = seed || [];
@@ -20,6 +26,9 @@ export const GridSquare = ({ id }: { id: number }) => {
     if (!isOpen) {
       setIsOpen(true);
       openSquares.add(id);
+      if (isBomb) {
+        setIsBombClicked(true);
+      }
     }
   };
 
