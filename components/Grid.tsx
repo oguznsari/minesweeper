@@ -6,9 +6,15 @@ import { toast } from "sonner";
 
 interface GridProps {
   setIsBombClicked: (value: boolean) => void;
+  setIsFinished: (value: boolean) => void;
+  setIsOpen: (value: boolean[]) => void;
 }
 
-export const Grid: React.FC<GridProps> = ({ setIsBombClicked }) => {
+export const Grid: React.FC<GridProps> = ({
+  setIsBombClicked,
+  setIsFinished,
+  setIsOpen,
+}) => {
   const seed: Seed | undefined = useContext(GameSeedContext);
 
   const renderGrid = () => {
@@ -24,7 +30,12 @@ export const Grid: React.FC<GridProps> = ({ setIsBombClicked }) => {
       const cols = [];
       for (let j = 0; j < width; j++) {
         cols.push(
-          <GridSquare id={i * width + j} setIsBombClicked={setIsBombClicked} />
+          <GridSquare
+            id={i * width + j}
+            setIsBombClicked={setIsBombClicked}
+            setIsFinished={setIsFinished}
+            setIsOpen={setIsOpen}
+          />
         );
       }
       rows.push(
