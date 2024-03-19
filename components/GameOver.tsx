@@ -1,53 +1,31 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Button } from "./ui/button";
-import { Seed, useBombClicked } from "./GameSeedInput";
-import { parseSeedInput } from "@/lib/utils";
-import { GameSeedContext } from "@/lib/context";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "@/state/store";
+import { initialState, setGrid } from "@/state/grid/gridSlice";
 
-interface GameOverProps {
-  setIsBombClicked: (value: boolean) => void;
-  setIsFinished: (value: boolean) => void;
-  setSeed: (value: Seed | undefined) => void;
-}
-
-export const GameOver = ({
-  setIsBombClicked,
-  setIsFinished,
-  setSeed,
-}: GameOverProps) => {
-  const [isBombClicked, isFinished] = useBombClicked();
-
-  const seed: Seed | undefined = useContext(GameSeedContext);
-
-  if (!seed) {
-    return null;
-  }
-
-  const [width, height, mineLocations] = seed;
-  const mineLocationsArray = Array.from(mineLocations);
-  const seedString = [width, height, ...mineLocationsArray].join(",");
+export const GameOver = () => {
+  const isBombClicked = useSelector(
+    (state: RootState) => state.grid.bombClicked
+  );
+  const isFinished: boolean = useSelector(
+    (state: RootState) => state.grid.isFinished
+  );
+  const dispatch = useDispatch<AppDispatch>();
 
   const handleClick = () => {
-    const parsedSeed = parseSeedInput(seedString);
-    setSeed(parsedSeed);
-    setIsBombClicked(false);
-    setIsFinished(false);
+    dispatch(setGrid(initialState));
   };
 
-  console.log({ isBombClicked, isFinished });
-
-  return (
-    <div className="text-2xl my-10">
-      {isBombClicked && !isFinished && (
-        <Button variant="destructive" onClick={handleClick}>
-          Game Over
-        </Button>
-      )}
-      {isFinished && !isBombClicked && (
-        <Button variant="secondary" onClick={handleClick}>
-          Congratulation
-        </Button>
-      )}
-    </div>
-  );
+  return isFinished ? (
+    <Button
+      className="mt-10"
+      variant={isBombClicked ? "destructive" : "secondary"}
+      onClick={handleClick}
+    >
+      {isBombClicked
+        ? "Game Over: You Lost. Click to Restart"
+        : "Congratulations! You Won. Click to Restart"}
+    </Button>
+  ) : null;
 };

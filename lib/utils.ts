@@ -14,10 +14,7 @@ export const parseSeedInput = (input: string): Seed => {
   const width = parseInt(widthStr, 10);
   const height = parseInt(heightStr, 10);
 
-  // Convert mine locations to a Set of numbers
-  const mineLocations = new Set(
-    mineLocationsStr.map((str) => parseInt(str, 10))
-  );
+  const mineLocations = mineLocationsStr.map((str) => parseInt(str, 10));
 
   return [width, height, mineLocations];
 };

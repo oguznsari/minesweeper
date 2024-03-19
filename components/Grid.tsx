@@ -1,57 +1,30 @@
-import React, { useContext, useState } from "react";
-import { Seed } from "./GameSeedInput";
-import { GameSeedContext } from "@/lib/context";
+import React, { useState } from "react";
 import { GridSquare } from "./GridSquare";
 import { toast } from "sonner";
+import { useSelector } from "react-redux";
+import { RootState } from "@/state/store";
 
-interface GridProps {
-  setIsBombClicked: (value: boolean) => void;
-  setIsFinished: (value: boolean) => void;
-  setIsOpen: (value: boolean[]) => void;
-}
+export const Grid = () => {
+  const width: number = useSelector((state: RootState) => state.grid.width);
+  const height: number = useSelector((state: RootState) => state.grid.height);
+  const isFinished: boolean = useSelector(
+    (state: RootState) => state.grid.isFinished
+  );
 
-export const Grid: React.FC<GridProps> = ({
-  setIsBombClicked,
-  setIsFinished,
-  setIsOpen,
-}) => {
-  const seed: Seed | undefined = useContext(GameSeedContext);
   const [toastShown, setToastShown] = useState(false);
 
-  if (!seed && !toastShown) {
+  if ((!width || !height) && !toastShown) {
     toast("Please provide width and height properly.");
     setToastShown(true);
     return null;
   }
 
-  if (seed) {
-    const [width, height] = seed;
-    if (!width || !height) {
-      if (!toastShown) {
-        toast("Please provide width and height properly.");
-        setToastShown(true);
-      }
-      return null;
-    }
-  }
-
   const renderGrid = () => {
-    if (!seed) return null;
-
-    const [width, height] = seed;
     const rows = [];
     for (let i = 0; i < height; i++) {
       const cols = [];
       for (let j = 0; j < width; j++) {
-        cols.push(
-          <GridSquare
-            key={i * width + j}
-            id={i * width + j}
-            setIsBombClicked={setIsBombClicked}
-            setIsFinished={setIsFinished}
-            setIsOpen={setIsOpen}
-          />
-        );
+        cols.push(<GridSquare key={i * width + j} id={i * width + j} />);
       }
       rows.push(
         <div key={i} className="flex">
@@ -63,5 +36,7 @@ export const Grid: React.FC<GridProps> = ({
     return rows;
   };
 
-  return <div className="grid grid-cols-1 gap-0 mt-10">{renderGrid()}</div>;
+  return isFinished ? null : (
+    <div className="grid grid-cols-1 gap-0 mt-10">{renderGrid()}</div>
+  );
 };
