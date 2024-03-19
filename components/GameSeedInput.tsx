@@ -5,6 +5,7 @@ import { GameSeedContext } from "@/lib/context";
 import { parseSeedInput } from "@/lib/utils";
 import { Grid } from "./Grid";
 import { GameOver } from "./GameOver";
+import { toast } from "sonner";
 
 export const BombClickedContext = createContext<[boolean, boolean, boolean[]]>([
   false,
@@ -30,6 +31,10 @@ export const GameSeedInput = () => {
     setSeed(parsedSeed);
     const [width, height] = parsedSeed;
 
+    if (!width || !height) {
+      toast("Width and height must be valid positive numbers.");
+      return;
+    }
     const isOpenArray = new Array(width * height).fill(false);
 
     setIsOpen(isOpenArray);

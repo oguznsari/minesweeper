@@ -18,7 +18,6 @@ export const GridSquare = ({
 
   const [width, height, mineLocations] = seed || [];
   const isBomb = mineLocations?.has(id) || false;
-  console.log({ isBomb, mineLocations, id });
   const [completed, setCompleted] = useState(false);
 
   if (!seed) {
@@ -26,14 +25,11 @@ export const GridSquare = ({
   }
 
   const handleClick = () => {
+    console.log({ isBomb, isOpen, width, height, mineLocations, completed });
     if (!isOpen[id]) {
       setIsOpen((isOpen: any) => {
-        // Create a new array by spreading the previous state
-        console.log({ isOpen });
         const updatedOpen = [...isOpen];
-        // Set the value at the specified index to true
         updatedOpen[id] = true;
-        // Return the updated array
         return updatedOpen;
       });
 

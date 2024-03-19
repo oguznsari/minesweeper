@@ -19,10 +19,8 @@ export const GameOver = ({
 
   const seed: Seed | undefined = useContext(GameSeedContext);
 
-  // Check if seed exists before deconstructing
   if (!seed) {
-    // Handle case when seed is undefined
-    return null; // or return a loading indicator, show an error message, etc.
+    return null;
   }
 
   const [width, height, mineLocations] = seed;
@@ -35,6 +33,8 @@ export const GameOver = ({
     setIsBombClicked(false);
     setIsFinished(false);
   };
+
+  console.log({ isBombClicked, isFinished });
 
   return (
     <div className="text-2xl my-10">
