@@ -2,6 +2,8 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/state/store";
 import { openLocation, finish } from "@/state/grid/gridSlice";
+import { FaLandMineOn } from "react-icons/fa6";
+import { BsCheckCircleFill } from "react-icons/bs";
 
 export const GridSquare = ({ id }: { id: number }) => {
   const width: number = useSelector((state: RootState) => state.grid.width);
@@ -23,7 +25,6 @@ export const GridSquare = ({ id }: { id: number }) => {
   }
 
   const handleClick = () => {
-    console.log({ isBomb });
     dispatch(
       openLocation({
         index: id,
@@ -32,13 +33,6 @@ export const GridSquare = ({ id }: { id: number }) => {
       })
     );
 
-    console.log({
-      isBomb,
-      op: openLocations.length,
-      ml: mineLocations.length,
-      width,
-      height,
-    });
     if (
       !isBomb &&
       openLocations.length + mineLocations.length + 1 === width * height
@@ -60,7 +54,7 @@ export const GridSquare = ({ id }: { id: number }) => {
         onClick={handleClick}
       >
         {/* Render content only if the square is open */}
-        {isOpen && (isBomb ? "💣" : "✅")}
+        {isOpen && (isBomb ? <FaLandMineOn /> : <BsCheckCircleFill />)}
       </div>
     </>
   );

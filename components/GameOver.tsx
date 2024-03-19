@@ -19,7 +19,7 @@ export const GameOver = () => {
 
   return isFinished ? (
     <Button
-      className="mt-10"
+      className="mt-24"
       variant={isBombClicked ? "destructive" : "secondary"}
       onClick={handleClick}
     >

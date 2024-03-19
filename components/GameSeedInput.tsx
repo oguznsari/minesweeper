@@ -1,4 +1,4 @@
-import React, { ChangeEvent, createContext, useContext, useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { parseSeedInput } from "@/lib/utils";
@@ -15,16 +15,35 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-
-export const BombClickedContext = createContext<[boolean, boolean, boolean[]]>([
-  false,
-  false,
-  [],
-]);
+import { Progress } from "./ui/progress";
 
 export type Seed = [width: number, height: number, mineLocations: number[]];
 
 export const GameSeedInput = () => {
+  const width: number = useSelector((state: RootState) => state.grid.width);
+  const height: number = useSelector((state: RootState) => state.grid.height);
+  const openLocations = useSelector(
+    (state: RootState) => state.grid.openLocations
+  );
+  const mineLocations = useSelector(
+    (state: RootState) => state.grid.mineLocations
+  );
+  const isFinished: boolean = useSelector(
+    (state: RootState) => state.grid.isFinished
+  );
+
+  const totalNonMineLocations = width * height - mineLocations.length;
+  const nonMineOpenedPercentage =
+    totalNonMineLocations !== 0
+      ? Math.round(
+          100 -
+            ((totalNonMineLocations - openLocations.length) /
+              totalNonMineLocations) *
+              100
+        )
+      : 0;
+  const progressPercentage = Math.max(0, nonMineOpenedPercentage);
+
   const dispatch = useDispatch<AppDispatch>();
   const [input, setInput] = useState("");
 
@@ -82,8 +101,13 @@ export const GameSeedInput = () => {
 
       <Grid />
       <GameOver />
+      {!isFinished && (
+        <Progress
+          className={"mt-20 mx-auto"}
+          value={progressPercentage}
+          style={{ maxWidth: "400px", display: "block" }}
+        />
+      )}
     </>
   );
 };
-
-export const useBombClicked = () => useContext(BombClickedContext);

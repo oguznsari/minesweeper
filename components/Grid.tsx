@@ -37,6 +37,6 @@ export const Grid = () => {
   };
 
   return isFinished ? null : (
-    <div className="grid grid-cols-1 gap-0 mt-10">{renderGrid()}</div>
+    <div className="grid grid-cols-1 gap-0 mt-16">{renderGrid()}</div>
   );
 };
