@@ -67,8 +67,10 @@ export const GameSeedInput = () => {
               </div>
             </TooltipTrigger>
             <TooltipContent>
-              <p className="text-center">Width, Height, ...mineLocations</p>
-              <p className="text-center">i.e: 3, 3, 0, 4, 7</p>
+              <p className="text-center text-xs">
+                Width, Height, ...mineLocations
+              </p>
+              <p className="text-center text-xs">i.e: 3, 3, 0, 4, 7</p>
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
