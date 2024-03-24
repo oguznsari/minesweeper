@@ -1,36 +1,52 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# MineSweeper
+
+This MineSweeper game implementation was inspired by an interview question from a Fortune 500 company (which shall remain unnamed for now). Though I didn't land the job, I enjoyed the challenge and decided to build it on my own. (Spoiler alert: Failed that interview 😂)
 
 ## Getting Started
 
-First, run the development server:
+To get started, clone the repository and run the following command:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## How to play
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+The game begins with a default game seed:
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+```javascript
+["width, height, ...mineLocations"];
+["3, 3, 0, 4, 7"];
+```
 
-## Learn More
+Here's what these parameters mean:
 
-To learn more about Next.js, take a look at the following resources:
+- width: Width of the game board.
+- height: Height of the game board.
+- mineLocations: An array indicating the locations of the mines on the board.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Alternatively, you can customize the game by providing your own dimensions and mine locations:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+```javascript
+["width, height, ...mineLocations"];
+```
 
-## Deploy on Vercel
+To play, open boxes on the grid without hitting any mines. If you successfully reveal all non-mine squares, you win the game! However, if you uncover a mine, the game ends, but fear not—you can restart with the default seed provided above.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+<h2 align="center" width="100%">Example</h2>
+<div style="display: flex; justify-content: space-between; width: 100%;">
+    <!-- Light theme -->
+    <div style="text-align: center;">
+        <h3 style="margin-bottom: 0;">Light Theme</h3>
+        <a href="#">
+            <img src="light_theme_icon_url" alt="Light Theme" style="height: 50px;">
+        </a>
+    </div>
+    <!-- Dark theme -->
+    <div style="text-align: center;">
+        <h3 style="margin-bottom: 0;">Dark Theme</h3>
+        <a href="#">
+            <img src="dark_theme_icon_url" alt="Dark Theme" style="height: 50px;">
+        </a>
+    </div>
+</div>
