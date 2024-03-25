@@ -82,7 +82,11 @@ export const GameSeedInput = () => {
             <TooltipTrigger>
               <div className="flex mx-auto items-center space-x-2">
                 <FaInfoCircle className="w-5 h-5" />
-                <Input value={input} onChange={handleChange} />
+                <Input
+                  placeholder="Width, Height, ...mineLocations"
+                  value={input}
+                  onChange={handleChange}
+                />
               </div>
             </TooltipTrigger>
             <TooltipContent>
